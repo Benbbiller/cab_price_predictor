@@ -68,4 +68,5 @@ y_pred = log_regress.predict(X_test)
 
 score = accuracy_score(y_test, y_pred)
 print(round(score, 3))
-print(f"Correctly Predicted {round(score, 3)*100}% of rides as expensive or not expensive")
+print(f"Correctly Predicted {round(score, 3)*100}% of rides as expensive or not expensive\n")
+print(f"Between these two models, Logistic regression is more accurate, being able to predict if cab fares are expensive or not {round(score, 3)*100}% of the time. More detailed comparision in the summary.\n")
