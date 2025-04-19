@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 
+from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.model_selection import train_test_split
@@ -12,7 +13,7 @@ import os
 # k-nearest neighbor regression model:
 
             #replace with your directory where csv is stored 
-os.chdir('C:/Users/ecoin/478_project/cab_price_predictor') 
+os.chdir('C:/Users/ecoin/478_project/cab_price_predictor')
 
 cab_rides = pd.read_csv('cab_rides.csv', nrows=60000).dropna()
 cab_data_refinement = cab_rides.drop(columns=['id', 'product_id'])
@@ -41,8 +42,30 @@ mse = mean_squared_error(y_test, y_pred)
 rmse = np.sqrt(mse)
 #score = accuracy_score(y_test, y_pred)
 
-print(f"MAE: ${mse:.2f}")
-print(f"RMSE: ${rmse:.2f}")
+print("Knn regression model results: ")
+print("Accuracy: ${score}")
+print(f"MSE: ${mse:.2f}")
+print(f"RMSE: ${rmse:.2f}\n")
 
-#print('Accuracy score is ', end="")
-#print('%.3f' % score)
+
+#Logistic regression model:
+
+cab_data_refinement['is_expensive'] = cab_data_refinement['price'].apply(lambda x: 1 if x > 30 else 0)
+
+X = cab_data_refinement[['hour', 'surge_multiplier']]
+y = cab_data_refinement['is_expensive']
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+log_regress = LogisticRegression(penalty='l2')
+log_regress.fit(X, y)
+
+print("Logistic Regression model results:\n")
+
+print('w1:', log_regress.coef_)
+print('w0:', log_regress.intercept_)
+
+y_pred = log_regress.predict(X_test)
+# Find the proportion of instances correctly classified
+score = accuracy_score(y_test, y_pred)
+print(round(score, 3))
+print(f"Correctly Predicted {round(score, 3)*100}% of rides as expensive or not expensive")
