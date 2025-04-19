@@ -40,10 +40,8 @@ y_pred = cab_ridesKnn.predict(X_test)
 
 mse = mean_squared_error(y_test, y_pred)
 rmse = np.sqrt(mse)
-#score = accuracy_score(y_test, y_pred)
 
 print("Knn regression model results: ")
-print("Accuracy: ${score}")
 print(f"MSE: ${mse:.2f}")
 print(f"RMSE: ${rmse:.2f}\n")
 
@@ -65,7 +63,7 @@ print('w1:', log_regress.coef_)
 print('w0:', log_regress.intercept_)
 
 y_pred = log_regress.predict(X_test)
-# Find the proportion of instances correctly classified
+
 score = accuracy_score(y_test, y_pred)
 print(round(score, 3))
 print(f"Correctly Predicted {round(score, 3)*100}% of rides as expensive or not expensive")
