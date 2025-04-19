@@ -31,7 +31,7 @@ np.random.seed(42)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
 
-cab_ridesKnn = KNeighborsRegressor(n_neighbors=3)
+cab_ridesKnn = KNeighborsRegressor(n_neighbors=100)
 
 cab_ridesKnn.fit(X_train, y_train)
 
@@ -43,7 +43,9 @@ rmse = np.sqrt(mse)
 
 print("Knn regression model results: ")
 print(f"MSE: ${mse:.2f}")
-print(f"RMSE: ${rmse:.2f}\n")
+print(f"RMSE: ${rmse:.2f}")
+print(f"Squared difference between predicted and observed cab fares: {mse:.2f}")
+print(f"On average our KNN Regression model cab fare is off by ${rmse:.2f}\n")
 
 
 #Logistic regression model:
