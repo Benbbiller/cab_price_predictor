@@ -22,4 +22,4 @@ This project uses **K-Nearest Neighbors Regression** and **Logistic Regression**
 3. Update the path in the script.
   - Update the path here: 
     - os.chdir('C:/path/')
-4. Run it.
+4. Now it can be ran.
